@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Contact</title>
+</head>
+<body>
+    <h2>Search for Contact</h2>
+    <form method="POST" action="{{ url_for('search_contact') }}">
+        <input type="text" name="registration_number" placeholder="Registration Number" required>
+        <button type="submit">Search</button>
+    </form>
+</body>
+</html> 
