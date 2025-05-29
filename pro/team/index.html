@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Security System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Smart Security System</h1>
+        <div id="auth-section">
+            <h2 id="auth-title">Sign Up</h2>
+            <form id="auth-form">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Submit</button>
+                <p id="auth-message"></p>
+                <a href="#" id="toggle-auth">Already have an account? Login</a>
+            </form>
+        </div>
+        <div id="report-section" style="display:none;">
+            <h2>Report an Incident</h2>
+            <form id="report-form">
+                <input type="text" id="incident-details" placeholder="Incident Details" required>
+                <input type="text" id="address" placeholder="Address" required>
+                <button type="submit">Report Incident</button>
+            </form>
+            <p id="report-message"></p>
+            <button id="logout-button" style="display:none;">Logout</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
