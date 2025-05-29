@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMART SECURITY SYSTEM FOR HOUSE HELPS</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>SMART SECURITY SYSTEM FOR HOUSE HELPS</h1>
+
+        <!-- Sign Up Form -->
+        <div class="auth-form" id="signUpForm">
+            <h2>Sign Up</h2>
+            <div class="form-group">
+                <label for="signupUsername">Username:</label>
+                <input type="text" id="signupUsername" required>
+            </div>
+            <div class="form-group">
+                <label for="signupPassword">Password:</label>
+                <input type="password" id="signupPassword" required>
+            </div>
+            <button class="btn" onclick="signUp()">Sign Up</button>
+            <p>Already have an account? <a href="#" onclick="showLogin()">Login here</a></p>
+        </div>
+
+        <!-- Login Form -->
+        <div class="auth-form" id="loginForm" style="display: none;">
+            <h2>Login</h2>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+            </div>
+            <button class="btn" onclick="login()">Login</button>
+            <p>Don't have an account? <a href="#" onclick="showSignUp()">Sign up here</a></p>
+        </div>
+
+        <!-- Report Form (Initially Hidden) -->
+        <div id="reportForm" style="display: none;">
+            <button class="btn logout-btn" onclick="logout()">Logout</button>
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+
+            <!-- Step 1: Personal Information -->
+            <div class="step active" id="step1">
+                <h2>Step 1: Personal Information</h2>
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <button class="btn" onclick="nextStep(1)">Next</button>
+            </div>
+
+            <!-- Step 2: Incident Details -->
+            <div class="step" id="step2">
+                <h2>Step 2: Incident Details</h2>
+                <div class="form-group">
+                    <label for="incidentType">Type of Incident:</label>
+                    <select id="incidentType" required>
+                        <option value="">Select incident type</option>
+                        <option value="theft">Theft</option>
+                        <option value="assault">Assault</option>
+                        <option value="fire">Fire</option>
+                        <option value="accident">Accident</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="description">Incident Description:</label>
+                    <textarea id="description" required></textarea>
+                </div>
+                <button class="btn" onclick="prevStep(2)">Previous</button>
+                <button class="btn" onclick="nextStep(2)">Next</button>
+            </div>
+
+            <!-- Step 3: Location -->
+            <div class="step" id="step3">
+                <h2>Step 3: Location Information</h2>
+                <div class="form-group">
+                    <label for="address">Detailed Address:</label>
+                    <textarea id="address" required></textarea>
+                </div>
+                <button class="btn" onclick="prevStep(3)">Previous</button>
+                <button class="btn" onclick="submitReport()">Submit Report</button>
+            </div>
+
+            <!-- Confirmation Step -->
+            <div class="step" id="confirmation">
+                <h2>Report Submitted Successfully</h2>
+                <div class="status-message success">
+                    <p>Your report has been sent to the nearest police station.</p>
+                    <p>Report ID: <span id="reportId"></span></p>
+                    <p>Nearest Police Station: <span id="policeStation"></span></p>
+                    <p>Estimated Response Time: <span id="responseTime"></span></p>
+                </div>
+                <button class="btn" onclick="resetForm()">Submit New Report</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showLogin() {
+            document.getElementById("signUpForm").style.display = "none";
+            document.getElementById("loginForm").style.display = "block";
+        }
+
+        function showSignUp() {
+            document.getElementById("loginForm").style.display = "none";
+            document.getElementById("signUpForm").style.display = "block";
+        }
+
+        function signUp() {
+            let username = document.getElementById("signupUsername").value;
+            let password = document.getElementById("signupPassword").value;
+
+            if (username && password) {
+                localStorage.setItem("username", username);
+                localStorage.setItem("password", password);
+                alert("Sign-up successful! Please log in.");
+                showLogin();
+            } else {
+                alert("Please fill in all fields.");
+            }
+        }
+
+        function login() {
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            let storedUsername = localStorage.getItem("username");
+            let storedPassword = localStorage.getItem("password");
+
+            if (username === storedUsername && password === storedPassword) {
+                localStorage.setItem("loggedIn", "true");
+                document.getElementById("loginForm").style.display = "none";
+                document.getElementById("reportForm").style.display = "block";
+            } else {
+                alert("Invalid username or password. Try again.");
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem("loggedIn");
+            document.getElementById("reportForm").style.display = "none";
+            showLogin();
+        }
+
+        function nextStep(step) {
+            document.getElementById("step" + step).classList.remove("active");
+            document.getElementById("step" + (step + 1)).classList.add("active");
+        }
+
+        function prevStep(step) {
+            document.getElementById("step" + step).classList.remove("active");
+            document.getElementById("step" + (step - 1)).classList.add("active");
+        }
+
+        function submitReport() {
+            alert("Report submitted successfully!");
+        }
+    </script>
+</body>
+</html>
